@@ -8,7 +8,7 @@ export type CallbackType = () => unknown | Dispatch<unknown>;
 export interface StoreType<T> {
     getState: () => initialState<T>;
     on: (event: Event<T>, cb: StateMutationCallback<T> | StateMutationCallbackWithSecondArg<T>) => StoreType<T>;
-    dispatch: (event: Event<T>, payload: (state: initialState<T>, arg?: T extends Array<T> ? T[0] : T) => initialState<T>) => void;
+    dispatch: (event: Event<T>, payload: any) => void;
     watch: (cb: any) => () => void;
 }
 export declare const createStore: <T>(initState: T) => StoreType<T>;

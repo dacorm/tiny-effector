@@ -9,14 +9,14 @@ export type CallbackType = () => unknown | Dispatch<unknown>;
 export interface StoreType<T> {
     getState: () => initialState<T>;
     on: (event: Event<T>, cb: StateMutationCallback<T> | StateMutationCallbackWithSecondArg<T>) => StoreType<T>;
-    dispatch: (event: Event<T>, payload: (state: initialState<T>, arg?: T extends Array<T> ? T[0] : T) => initialState<T>) => void;
+    dispatch: (event: Event<T>, payload: any) => void;
     watch: (cb: any) => () => void;
 };
 
 export const createStore = <T>(initState: initialState<T>): StoreType<T> => {
     let state = initState;
     let events = new Map();
-    let watchers: CallbackType[];
+    let watchers: CallbackType[] = [];
 
     let store = {
         getState: () => state,
@@ -28,7 +28,7 @@ export const createStore = <T>(initState: initialState<T>): StoreType<T> => {
             }
             return this;
         },
-        dispatch(event: Event<T>, payload: (state: initialState<T>) => initialState<T> | SecondDispatchCallback<T>): void {
+        dispatch(event: Event<T>, payload: any): void {
 
             const cb = events.get(event);
             if (cb && typeof cb === "function") {

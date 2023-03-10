@@ -14,7 +14,7 @@ var createEvent = function () {
 var createStore = function (initState) {
   var state = initState;
   var events = new Map();
-  var watchers;
+  var watchers = [];
   var store = {
     getState: function () {
       return state;
